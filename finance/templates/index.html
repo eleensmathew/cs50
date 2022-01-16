@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+<form action="/" method="post">
+    <div ></div>
+    <div >
+        {% if not stocks %}
+            <h4>You have no shares. Go <a href="{{ url_for('buy') }}">buy</a> some!</h4>
+        {% endif %}
+        {% if stocks %}
+        <table class="table table-hover">
+            <tr>
+                <th>Company</th>
+                <th>Symbol</th>
+                <th>Quantity</th>
+                <th>PPS</th>
+                <th>CPPS</th>
+                <th>TSV</th>
+                <th>CSV</th>
+                <th>Profit</th>
+            </tr>
+            
+            {% for stock in stocks %}
+            <tr>
+                <td>{{ stock.company }}</td>
+                <td>{{ stock.symbol }}</td>
+                <td>{{ stock.quantity }}</td>
+                <td>{{ stock.price }}</td>
+                <td>{{ stock.cur_price }}</td>
+                <td>{{ stock.total }}</td>
+                <td>{{ stock.cur_total }}</td>
+                <td>{{ stock.profit }}</td>
+            </tr>    
+            {% endfor %}
+        </table>
+        {% endif %}
+        <blockquote class="center">
+            <div></div>
+            <div></div>
+            <h5 class="center "><small><b>Available cash: <mark>{{ cash }}</mark></small></b></h4>
+            <div></div>
+            <h5 class="center"><small><b>Portfolio value: <mark>{{ grand_total }}</mark></small></b></h4>
+            
+        </blockquote>
+        <div></div>
+        <div></div>
+        {% if stocks %}
+        <h5>
+                <small>
+                <p class="center">PPS - price per share (initial)</p> 
+               <p class="center"> CPPS - current price per share </p>
+                <p class="center">TSV - total shares value </p>
+               <p class="center">CSV - current shares value</p>
+                </small>
+        </h5>
+        {% endif %}
+    </div>
+    <div class="col-md-2"></div>
+{% endblock %}
