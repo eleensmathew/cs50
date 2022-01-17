@@ -125,10 +125,7 @@ def buy():
         # modify available funds
         db.execute("UPDATE users SET cash = :cash WHERE id = :id", cash=funds_left, id=user_id)
 
-        # commit to history
-        #db.execute("INSERT INTO history (user_id, action, symbol, shares, pps) VALUES (:user_id, :action, :symbol, :shares, :pps)",
-         #           user_id=user_id, action=1, symbol=symbol, shares=shares, pps=stock["price"])
-
+        
         # send a success message
         return redirect("/")
         #return render_template("index.html", action="bought", shares=shares,
@@ -296,7 +293,7 @@ def sell():
 
         # modify number of shares owned or delete if < 1
         if int(quantity) == stock_db["quantity"]:
-            db.execute("DELETE FROM stocks WHERE user_id = :user_id AND symbol = :symbol", userid=user_id, symbol=symbol)
+            db.execute("DELETE FROM stocks WHERE user_id = :user_id AND symbol = :symbol", user_id=user_id, symbol=symbol)
         else:
             new_quantity = int(stock_db["quantity"]) - int(quantity)
             new_total = float(new_quantity) * float(stock["price"])
@@ -307,10 +304,7 @@ def sell():
         funds_available = float(user[0]["cash"]) + total_price
         db.execute("UPDATE users SET cash = :cash WHERE id = :id", cash=funds_available, id=user_id)
 
-        # commit to history
-        #db.execute("INSERT INTO history (user_id, action, symbol, quantity, pps) VALUES (:user_id, :action, :symbol, :quantity, :pps)",
-                    #user_id=user_id, action=0, symbol=symbol, quantity=quantity, pps=stock["price"])
-
+        
         # send a success message
         return render_template("success.html", action="sold", quantity=quantity,
                                 name=stock["name"], total=usd(total_price), funds=usd(funds_available))

@@ -5,14 +5,16 @@
 {% endblock %}
 
 {% block main %}
-    <small><h3 class="text-center">
+    <h3 class="text-center"><small>
         You successfully {{ action }}
         <mark>{{ quantity }} {{ name }}</mark> 
         {% if quantity == "1" %} share 
         {% else %} shares
         {% endif %} for 
+        <div></div>
         <mark>{{ total }}</mark>
-    </h3></small>
+        
+    </h3>
     <h3 class="text-center">
        <small> Funds available: <b><mark>{{ funds }}</mark></b></small>
     </h3>
