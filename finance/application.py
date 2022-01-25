@@ -125,11 +125,9 @@ def buy():
         # modify available funds
         db.execute("UPDATE users SET cash = :cash WHERE id = :id", cash=funds_left, id=user_id)
 
-        
-        # send a success message
+      
         return redirect("/")
-        #return render_template("index.html", action="bought", shares=shares,
-         #                       name=stock["name"], total=usd(total_price), funds=usd(funds_left))
+       
 
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
@@ -201,9 +199,7 @@ def quote():
                 return apology("must provide valid symbol")
 
 
-        stock=lookup(request.form.get("quote"))
-        #symbol=stock["symbol"]
-        #name=stock["name"]
+        stock=lookup(request.form.get("quote")
         price=stock["price"]
         return render_template("quoted.html", symbol=stock["symbol"], name=stock["name"], price=stock["price"])
 
@@ -325,6 +321,4 @@ def errorhandler(e):
 for code in default_exceptions:
     app.errorhandler(code)(errorhandler)
 
-#rows = db.execute("SELECT * FROM users WHERE username = ?",'eleena')
-#session["user_id"] = rows[0]["id"]
-#print(session["user_id"])
+
